@@ -2,6 +2,43 @@
 Self-Driving Car Engineer Nanodegree Program
 
 ---
+# Describe the effect each of the P, I, D components had in your implementation.
+
+## Proportional gain
+Generates a steering correction proportional to the cross track error. The higher the P value is, the more the responsive the correction is. But too large P would result in overshooting and oscillation in steering control.
+
+## Differential gain
+It helps 'damp' the overshooting caused by Proportional gain. However, if D gain is overly large, it would induce too much damping and make the system hard to take prompt responses.
+
+## Integral gain
+Plays an indispensable role if there is a drift in the system. It generates a control signal that is proportional to the accumulation of the cte over time.
+
+
+# Describe how the final hyperparameters were chosen.
+
+First, I tried to decide all parameters by using twiddle algorithm. But I couldn't  drive successfully around the track.
+So, I changed my mind to decide each parameter separately.
+
+## 1. P parameter
+Initial State: P=0, I=0, D=0  
+Then I applied twiddle algorithm under the condition that I, D were fixed.
+
+I got P=0.125265 which minimize driving error.  
+![img](./p_param.png)
+
+## 2. D parameter
+Initial State: P=0.125265, I=0, D=0  
+Then I applied twiddle algorithm under the condition that P, I were fixed.
+
+I got D=9.22968 which minimize driving error.  
+![img](./d_param.png)
+
+## 3. Check driving result
+I drove the car by P=0.125265, I=0, D=9.22968 then I could drive successfully around the track. So I finished the parameter tuning. 
+I recorded the movie(because of the file size, I just recorded the half of the track.)
+[movie](./movie.mpeg)
+
+---
 
 ## Dependencies
 
